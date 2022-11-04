@@ -69,3 +69,35 @@ export async function getTodo(
 
   }
 }
+
+export async function updateTodo(
+  request: Request<ParamsWithId, TodoWithId, Todo>,
+  response: Response<TodoWithId>,
+  next: NextFunction,
+) {
+  try {
+    const id = request.params.id;
+    const result = await Todos.findOneAndUpdate({
+      _id: new ObjectId(id),
+    }, {
+      $set: request.body,
+    }, {
+      returnDocument: 'after',
+    });
+  
+    if (!result.value) {
+      response.status(404);
+      throw new Error(`Todo with id "${id}" not found`);
+    }
+
+    response.status(200).json(result.value);
+
+  } catch (error) {
+
+    if (error instanceof ZodError) {
+      response.status(422);
+    }
+    next(error);
+
+  }
+}

@@ -2,13 +2,25 @@
 GET http://localhost:3000/api/v1/todos
 
 ### Get Todo
-GET http://localhost:3000/api/v1/todos/63649512614f58799ec3b50a
+GET http://localhost:3000/api/v1/todos/6364b01f89a435b0861e57c2
 
 ### Create Todo
 POST http://localhost:3000/api/v1/todos
 content-type: application/json
 
 {
-  "content": "Go to the library",
+  "content": "Learn Typescript",
   "done": false
 }
+
+### Update Todo
+PUT http://localhost:3000/api/v1/todos/6364b01f89a435b0861e57c2
+content-type: application/json
+
+{
+  "content": "Go to the library",
+  "done": true
+}
+
+### DELETE Todo
+DELETE http://localhost:3000/api/v1/todos/6364b09889a435b0861e57c5

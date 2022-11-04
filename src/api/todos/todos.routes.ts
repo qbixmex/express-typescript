@@ -8,16 +8,22 @@ const router = Router();
 
 router.get('/', TodosController.getTodos);
 
+router.post(
+  '/',
+  validateRequest({ body: Todo }),
+  TodosController.createTodo,
+);
+
 router.get(
   '/:id',
   validateRequest({ params: ParamsWithId }),
   TodosController.getTodo,
 );
 
-router.post(
-  '/',
-  validateRequest({ body: Todo }),
-  TodosController.createTodo,
+router.put(
+  '/:id',
+  validateRequest({ params: ParamsWithId, body: Todo }),
+  TodosController.updateTodo,
 );
 
 export default router;

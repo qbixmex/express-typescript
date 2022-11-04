@@ -9,7 +9,7 @@ beforeAll(async () => {
 });
 
 let id = '';
-const mockId = '63646e4f96d5d27108d71bdd';
+const mockId = '63649f1a5e1e82ccc017294e';
 
 describe('GET /api/v1/todos', () => {
   test('responds with an array of todos', async () =>
@@ -87,6 +87,49 @@ describe('GET /api/v1/todos/:id', () => {
       .expect(404)
       .then(response => {
         expect(response.body.message).toBe(`Todo with id "${mockId}" not found`);
+      }),
+  );
+});
+
+describe('PUT /api/v1/todos/:id', () => {
+  test('responds with an invalid Object Id error', () =>
+    request(app)
+      .put('/api/v1/todos/abc123')
+      .set('Accept', 'application/json')
+      .send({
+        content: 'Learn Typescript',
+        done: true,
+      })
+      .expect('Content-Type', /json/)
+      .expect(422),
+  );
+  test('responds with not found error', async () =>
+    request(app)
+      .put(`/api/v1/todos/${mockId}`)
+      .set('Accept', 'application/json')
+      .send({
+        content: 'Learn Typescript',
+        done: true,
+      })
+      .expect('Content-Type', /json/)
+      .expect(404)
+      .then(response => {
+        expect(response.body.message).toBe(`Todo with id \"${mockId}\" not found`);
+      }),
+  );
+  test('responds with updated todo', async () =>
+    request(app)
+      .put(`/api/v1/todos/${id}`)
+      .set('Accept', 'application/json')
+      .send({
+        content: 'Learn Typescript',
+        done: true,
+      })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then(response => {
+        expect(response.body.content).toBe('Learn Typescript');
+        expect(response.body.done).toBe(true);
       }),
   );
 });
