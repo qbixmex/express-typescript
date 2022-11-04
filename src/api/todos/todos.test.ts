@@ -36,7 +36,7 @@ describe('Post /api/v1/todos', () => {
         expect(response.body).toHaveProperty('message');
       }),
   );
-  test.only('responds with inserted object', async () =>
+  test('responds with inserted object', async () =>
     request(app)
       .post('/api/v1/todos')
       .set('Accept', 'application/json')

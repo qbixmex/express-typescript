@@ -22,8 +22,7 @@ export async function createTodo(
   next: NextFunction,
 ) {
   try {
-    const validateResult = await Todo.parseAsync(request.body);
-    const result = await Todos.insertOne(validateResult);
+    const result = await Todos.insertOne(request.body);
 
     if (!result.acknowledged) {
       throw new Error('Error inserting todo');
@@ -31,7 +30,7 @@ export async function createTodo(
 
     response.status(201).json({
       _id: result.insertedId,
-      ...validateResult,
+      ...request.body,
     });
 
   } catch (error) {
