@@ -1,1 +1,10 @@
 GET http://localhost:3000/api/v1/todos
+
+###
+POST http://localhost:3000/api/v1/todos
+content-type: application/json
+
+{
+  "content": "Go to the library",
+  "done": false
+}
