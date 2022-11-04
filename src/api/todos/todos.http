@@ -1,6 +1,10 @@
+### Get All Todos
 GET http://localhost:3000/api/v1/todos
 
-###
+### Get Todo
+GET http://localhost:3000/api/v1/todos/63649512614f58799ec3b50a
+
+### Create Todo
 POST http://localhost:3000/api/v1/todos
 content-type: application/json
 

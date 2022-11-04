@@ -1,6 +1,8 @@
 import { Response, Request, NextFunction } from 'express';
 import { ZodError } from 'zod';
 import { Todo, Todos, TodoWithId } from './todos.model';
+import { ParamsWithId } from '../../interfaces/ParamsWithId';
+import { ObjectId } from 'mongodb';
 
 export async function getTodos(
   _request: Request,
@@ -38,5 +40,32 @@ export async function createTodo(
       response.status(422);
     }
     next(error);
+  }
+}
+
+export async function getTodo(
+  request: Request<ParamsWithId, TodoWithId, {}>,
+  response: Response<TodoWithId>,
+  next: NextFunction,
+) {
+  try {
+
+    const id = request.params.id;
+    const result = await Todos.findOne({ _id: new ObjectId(id) });
+
+    if (!result) {
+      response.status(404);
+      throw new Error(`Todo with id "${id}" not found`);
+    }
+
+    response.status(200).json(result);
+
+  } catch (error) {
+
+    if (error instanceof ZodError) {
+      response.status(422);
+    }
+    next(error);
+
   }
 }
