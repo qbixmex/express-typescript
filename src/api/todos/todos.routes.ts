@@ -26,4 +26,10 @@ router.put(
   TodosController.updateTodo,
 );
 
+router.delete(
+  '/:id',
+  validateRequest({ params: ParamsWithId }),
+  TodosController.deleteTodo,
+);
+
 export default router;

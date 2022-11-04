@@ -101,3 +101,29 @@ export async function updateTodo(
 
   }
 }
+
+export async function deleteTodo(
+  request: Request<ParamsWithId, {}, {}>,
+  response: Response<{}>,
+  next: NextFunction,
+) {
+  try {
+    const id = request.params.id;
+    const result = await Todos.findOneAndDelete({ _id: new ObjectId(id) });
+
+    if (!result.value) {
+      response.status(404);
+      throw new Error(`Todo with id "${id}" not found`);
+    }
+
+    response.status(204).end();
+
+  } catch (error) {
+
+    if (error instanceof ZodError) {
+      response.status(422);
+    }
+    next(error);
+
+  }
+}

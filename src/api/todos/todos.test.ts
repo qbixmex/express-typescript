@@ -133,3 +133,36 @@ describe('PUT /api/v1/todos/:id', () => {
       }),
   );
 });
+
+describe('DELETE /api/v1/todos/:id', () => {
+  test('responds with an invalid Object Id error', () =>
+    request(app)
+      .delete('/api/v1/todos/abc123')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(422),
+  );
+  test('responds with not found error', async () =>
+    request(app)
+      .delete(`/api/v1/todos/${mockId}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(404)
+      .then(response => {
+        expect(response.body.message).toBe(`Todo with id \"${mockId}\" not found`);
+      }),
+  );
+  test('responds with deleted todo', (done) => {
+    request(app)
+      .delete(`/api/v1/todos/${id}`)
+      .set('Accept', 'application/json')
+      .expect(204, done);
+  });
+  test('responds with a not found exception after deleting', (done) => {
+    request(app)
+      .get(`/app/v1/todos/${id}`)
+      .set('Accept', 'application/json')
+      .expect(404, done);
+  });
+});
+
