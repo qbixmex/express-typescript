@@ -1,6 +1,6 @@
 {
   "name": "express-api-starter-ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Restfull API with Express and Typescript",
   "main": "src/index.ts",
   "scripts": {
@@ -10,7 +10,12 @@
     "lint": "eslint --fix src test",
     "test": "jest"
   },
-  "keywords": ["express", "javascript", "typescript", "jest"],
+  "keywords": [
+    "express",
+    "javascript",
+    "typescript",
+    "jest"
+  ],
   "author": "Daniel González Briseño",
   "repository": {
     "type": "git",
@@ -22,7 +27,9 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "helmet": "^5.1.1",
-    "morgan": "^1.10.0"
+    "mongodb": "^4.11.0",
+    "morgan": "^1.10.0",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
