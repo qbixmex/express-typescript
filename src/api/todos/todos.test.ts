@@ -11,7 +11,7 @@ beforeAll(async () => {
 let id = '';
 const mockId = '63649f1a5e1e82ccc017294e';
 
-describe('GET /api/v1/todos', () => {
+describe.only('GET /api/v1/todos', () => {
   test('responds with an array of todos', async () =>
     request(app)
       .get('/api/v1/todos')
