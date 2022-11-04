@@ -76,3 +76,6 @@ dist
 
 # Visual Studio Configuration
 .vscode
+
+# Local Database
+mongo/

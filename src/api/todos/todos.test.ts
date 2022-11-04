@@ -1,5 +1,12 @@
 import request from 'supertest';
 import app from '../../app';
+import { Todos } from './todos.model';
+
+beforeAll(async () => {
+  try {
+    await Todos.drop();
+  } catch (error) {}
+});
 
 describe('GET /api/v1', () => {
   it('responds with an array of todos', async () =>
@@ -10,9 +17,7 @@ describe('GET /api/v1', () => {
       .expect(200)
       .then(response => {
         expect(response.body).toHaveProperty('length');
-        expect(response.body.length).toBe(1);
-        expect(response.body[0]).toHaveProperty('content');
-        expect(response.body[0]).toHaveProperty('done');
+        expect(response.body.length).toBe(0);
       }),
   );
 });

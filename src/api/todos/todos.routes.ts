@@ -1,12 +1,12 @@
 import { Router, Response, Request } from 'express';
-import Todo from './todos.model';
+import { Todos, TodoWithId } from './todos.model';
 
 const router = Router();
 
-router.get('/', (_req: Request, res: Response<Todo[]>) => {
-  res.status(200).json([
-    { content: 'Go to the Gym', done: false },
-  ]);
+router.get('/', async (_req: Request, res: Response<TodoWithId[]>) => {
+  const result = await Todos.find();
+  const todos = await result.toArray();
+  res.status(200).json(todos);
 });
 
 //? Alternative

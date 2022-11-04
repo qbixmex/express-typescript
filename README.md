@@ -36,12 +36,18 @@ Development utilities:
 
 ## Setup
 
+### 1. Install App Dependencies
 ```bash
 # NPM
 > npm install
 
 # Yarn
 > yarn
+```
+
+### 2. Run Docker to install database
+```
+> docker-compose up -d   
 ```
 
 ## Lint
